@@ -1,0 +1,22 @@
+cbMac
+reserved1
+reserved2
+ccpText 64+3*4
+ccpFtn  64+4*4
+ccpHdd  64+5*4
+reserved3
+ccpAtn  64+7*4
+ccpEdn  64+8*4
+ccpTxbx 64+9*4
+ccpHdrTxbx 64+10*4
+reserved4
+reserved5
+reserved6
+reserved7
+reserved8
+reserved9
+reserved10
+reserved11
+reserved12
+reserved13
+reserved14

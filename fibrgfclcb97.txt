@@ -1,0 +1,186 @@
+fcStshfOrig
+lcbStshfOrig
+fcStshf
+lcbStshf
+fcPlcffndRef
+lcbPlcffndRef
+fcPlcffndTxt
+lcbPlcffndTxt
+fcPlcfandRef
+lcbPlcfandRef
+fcPlcfandTxt
+lcbPlcfandTxt
+fcPlcfSed
+lcbPlcfSed
+fcPlcPad
+lcbPlcPad
+fcPlcfPhe
+lcbPlcfPhe
+fcSttbfGlsy
+lcbSttbfGlsy
+fcPlcfGlsy
+lcbPlcfGlsy
+fcPlcfHdd
+lcbPlcfHdd
+fcPlcfBteChpx
+lcbPlcfBteChpx
+fcPlcfBtePapx
+lcbPlcfBtePapx
+fcPlcfSea
+lcbPlcfSea
+fcSttbfFfn
+lcbSttbfFfn
+fcPlcfFldMom * offset of main doc fields. Note: could use this to dig further
+lcbPlcfFldMom * size of main doc fields (offset calculated by 33 * 4 + 154)
+fcPlcfFldHdr * offset of header/footer fields
+lcbPlcfFldHdr * size header/footer fields
+fcPlcfFldFtn * offset of footnote fields
+lcbPlcfFldFtn * size footnote fields
+fcPlcfFldAtn  * offset of comment fields
+lcbPlcfFldAtn * size comment fields
+fcPlcfFldMcr * not used
+lcbPlcfFldMcr * not used
+fcSttbfBkmk
+lcbSttbfBkmk
+fcPlcfBkf
+lcbPlcfBkf
+fcPlcfBkl
+lcbPlcfBkl
+fcCmds
+lcbCmds
+fcUnused1
+lcbUnused1
+fcSttbfMcr
+lcbSttbfMcr
+fcPrDrvr
+lcbPrDrvr
+fcPrEnvPort
+lcbPrEnvPort
+fcPrEnvLand
+lcbPrEnvLand
+fcWss
+lcbWss
+fcDop
+lcbDop
+fcSttbfAssoc
+lcbSttbfAssoc
+fcClx * offset of the Clx portion of the document
+lcbClx * size of the Clx portion of the document
+fcPlcfPgdFtn
+lcbPlcfPgdFtn
+fcAutosaveSource
+lcbAutosaveSource
+fcGrpXstAtnOwners
+lcbGrpXstAtnOwners
+fcSttbfAtnBkmk
+lcbSttbfAtnBkmk
+fcUnused2
+lcbUnused2
+fcUnused3
+lcbUnused3
+fcPlcSpaMom
+lcbPlcSpaMom
+fcPlcSpaHdr
+lcbPlcSpaHdr
+fcPlcfAtnBkf
+lcbPlcfAtnBkf
+fcPlcfAtnBkl
+lcbPlcfAtnBkl
+fcPms
+lcbPms
+fcFormFldSttbs
+lcbFormFldSttbs
+fcPlcfendRef
+lcbPlcfendRef
+fcPlcfendTxt
+lcbPlcfendTxt
+fcPlcfFldEdn * (96*4 + 154)
+lcbPlcfFldEdn *
+fcUnused4
+lcbUnused4
+fcDggInfo
+lcbDggInfo
+fcSttbfRMark
+lcbSttbfRMark
+fcSttbfCaption
+lcbSttbfCaption
+fcSttbfAutoCaption
+lcbSttbfAutoCaption
+fcPlcfWkb
+lcbPlcfWkb
+fcPlcfSpl
+lcbPlcfSpl
+fcPlcftxbxTxt
+lcbPlcftxbxTxt
+fcPlcfFldTxbx * (116*4 + 154)
+lcbPlcfFldTxbx *
+fcPlcfHdrtxbxTxt
+lcbPlcfHdrtxbxTxt
+fcPlcffldHdrTxbx * (118*4+154)
+lcbPlcffldHdrTxbx *
+fcStwUser
+lcbStwUser
+fcSttbTtmbd
+lcbSttbTtmbd
+fcCookieData
+lcbCookieData
+fcPgdMotherOldOld
+lcbPgdMotherOldOld
+fcBkdMotherOldOld
+lcbBkdMotherOldOld
+fcPgdFtnOldOld
+lcbPgdFtnOldOld
+fcBkdFtnOldOld
+lcbBkdFtnOldOld
+fcPgdEdnOldOld
+lcbPgdEdnOldOld
+fcBkdEdnOldOld
+lcbBkdEdnOldOld
+fcSttbfIntlFld
+lcbSttbfIntlFld
+fcRouteSlip
+lcbRouteSlip
+fcSttbSavedBy
+lcbSttbSavedBy
+fcSttbFnm
+lcbSttbFnm
+fcPlfLst
+lcbPlfLst
+fcPlfLfo
+lcbPlfLfo
+fcPlcfTxbxBkd
+lcbPlcfTxbxBkd
+fcPlcfTxbxHdrBkd
+lcbPlcfTxbxHdrBkd
+fcDocUndoWord9
+lcbDocUndoWord9
+fcRgbUse
+lcbRgbUse
+fcUsp
+lcbUsp
+fcUskf
+lcbUskf
+fcPlcupcRgbUse
+lcbPlcupcRgbUse
+fcPlcupcUsp
+lcbPlcupcUsp
+fcSttbGlsyStyle
+lcbSttbGlsyStyle
+fcPlgosl
+lcbPlgosl
+fcPlcocx
+lcbPlcocx
+fcPlcfBteLvc
+lcbPlcfBteLvc
+dwLowDateTime
+dwHighDateTime
+fcPlcfLvcPre10
+lcbPlcfLvcPre10
+fcPlcfAsumy
+lcbPlcfAsumy
+fcPlcfGram
+lcbPlcfGram
+fcSttbListNames
+lcbSttbListNames
+fcSttbfUssr
+lcbSttbfUssr
