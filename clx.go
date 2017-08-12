@@ -72,7 +72,7 @@ func readClx(table *mscfb.File, fib *fib) ([]byte, error) {
 	return b, nil
 }
 
-// read Pcdt from Clx (section )
+// read Pcdt from Clx (section 2.9.178)
 func getPcdt(clx []byte, pcdtOffset int) (*pcdt, error) {
 	const pcdSize = 8
 	if clx[pcdtOffset] != 0x02 { // clxt must be 0x02 or invalid

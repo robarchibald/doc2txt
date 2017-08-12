@@ -2,7 +2,9 @@ package doc2txt
 
 import (
 	"bytes"
+	"encoding/binary"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/mattetti/filebuffer"
@@ -92,15 +94,108 @@ func getText(wordDoc *mscfb.File, clx *clx) (io.Reader, error) {
 		}
 
 		b := make([]byte, end-start)
-		i, err := wordDoc.ReadAt(b, int64(start/size))
+		_, err := wordDoc.ReadAt(b, int64(start/size)) // read all the characters
 		if err != nil {
 			return nil, err
-		} else if i != end-start {
-			return nil, errDocShort
 		}
-		buf.Write(b)
+		translateText(b, &buf, pcd.fc.fCompressed)
 	}
 	return &buf, nil
+}
+
+func translateText(b []byte, buf *bytes.Buffer, fCompressed bool) {
+	fieldLevel := 0
+	var isFieldChar bool
+	for cIndex := range b {
+		// Handle special field characters (section 2.8.25)
+		if b[cIndex] == 0x13 {
+			isFieldChar = true
+			fieldLevel++
+			continue
+		} else if b[cIndex] == 0x14 {
+			isFieldChar = false
+			continue
+		} else if b[cIndex] == 0x15 {
+			isFieldChar = false
+			continue
+		} else if isFieldChar {
+			continue
+		}
+
+		if b[cIndex] == 7 { // table column separator
+			buf.WriteByte(' ')
+			continue
+		} else if b[cIndex] < 32 && b[cIndex] != 9 && b[cIndex] != 10 && b[cIndex] != 13 { // skip non-printable ASCII characters
+			//buf.Write([]byte(fmt.Sprintf("|%#x|", b[cIndex])))
+			continue
+		}
+
+		if fCompressed { // compressed, so replace compressed characters
+			buf.Write(replaceCompressed(b[cIndex]))
+		} else {
+			buf.Write(b)
+		}
+	}
+}
+
+func replaceCompressed(char byte) []byte {
+	var v uint16
+	switch char {
+	case 0x82:
+		v = 0x201A
+	case 0x83:
+		v = 0x0192
+	case 0x84:
+		v = 0x201E
+	case 0x85:
+		v = 0x2026
+	case 0x86:
+		v = 0x2020
+	case 0x87:
+		v = 0x2021
+	case 0x88:
+		v = 0x02C6
+	case 0x89:
+		v = 0x2030
+	case 0x8A:
+		v = 0x0160
+	case 0x8B:
+		v = 0x2039
+	case 0x8C:
+		v = 0x0152
+	case 0x91:
+		v = 0x2018
+	case 0x92:
+		v = 0x2019
+	case 0x93:
+		v = 0x201C
+	case 0x94:
+		v = 0x201D
+	case 0x95:
+		v = 0x2022
+	case 0x96:
+		v = 0x2013
+	case 0x97:
+		v = 0x2014
+	case 0x98:
+		v = 0x02DC
+	case 0x99:
+		v = 0x2122
+	case 0x9A:
+		v = 0x0161
+	case 0x9B:
+		v = 0x203A
+	case 0x9C:
+		v = 0x0153
+	case 0x9F:
+		v = 0x0178
+	default:
+		return []byte{char}
+	}
+	fmt.Println("replacing")
+	out := make([]byte, 2)
+	binary.LittleEndian.PutUint16(out, v)
+	return out
 }
 
 func getWordDocAndTables(r *mscfb.Reader) (*mscfb.File, *mscfb.File, *mscfb.File) {
