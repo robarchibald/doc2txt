@@ -5,12 +5,14 @@ A native Go reader for the old Microsoft Word .doc binary format files
 
 Example usage:
 
-   f, _ := os.Open(`testData\simpleDoc.doc`)
-   buf, err := ParseDoc(f)
-   if err != nil {
-     // handle error
-   }
-   // buf now contains an io.Reader which you can save to the file system or further transform
+```go
+f, _ := os.Open(`testData\simpleDoc.doc`)
+buf, err := ParseDoc(f)
+if err != nil {
+  // handle error
+}
+// buf now contains an io.Reader which you can save to the file system or further transform
+```
 
 ## Special Thanks
 A great big thank you to Richard Lehane. His [(https://github.com/richardlehane/mscfb](https://github.com/richardlehane/mscfb) got me started, his [https://github.com/richardlehane/doctool](https://github.com/richardlehane/doctool) project got me closer and his answer to questions via email helped get me to the finish line. Thanks Richard!
