@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/binary"
 	"errors"
-	"fmt"
 	"io"
 
 	"github.com/mattetti/filebuffer"
@@ -192,7 +191,6 @@ func replaceCompressed(char byte) []byte {
 	default:
 		return []byte{char}
 	}
-	fmt.Println("replacing")
 	out := make([]byte, 2)
 	binary.LittleEndian.PutUint16(out, v)
 	return out
