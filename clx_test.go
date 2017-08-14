@@ -1,8 +1,17 @@
 package doc2txt
 
 import (
+	"os"
 	"testing"
+
+	"github.com/richardlehane/mscfb"
 )
+
+func init() {
+	f, _ := os.Open(`testData\simpleDoc.doc`)
+	reader, _ = mscfb.New(f)
+	simpleDoc, _, table = getWordDocAndTables(reader)
+}
 
 func TestGetClx(t *testing.T) {
 	// invalid argument(s)
