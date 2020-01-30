@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseSimpleDoc(t *testing.T) {
-	f, _ := os.Open(`testData\simpleDoc.doc`)
+	f, _ := os.Open(`testData/simpleDoc.doc`)
 	buf, err := ParseDoc(f)
 	if err != nil {
 		t.Fatal("expected successful parse", err)
@@ -19,7 +19,7 @@ func TestParseSimpleDoc(t *testing.T) {
 }
 
 func TestParseComplicated(t *testing.T) {
-	f, _ := os.Open(`testData\docFile.doc`)
+	f, _ := os.Open(`testData/docFile.doc`)
 	buf, err := ParseDoc(f)
 	if err != nil {
 		t.Fatal("expected to be able to parse document", err)

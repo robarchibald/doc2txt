@@ -12,7 +12,7 @@ var table *mscfb.File
 var reader *mscfb.Reader
 
 func init() {
-	f, _ := os.Open(`testData\simpleDoc.doc`)
+	f, _ := os.Open(`testData/simpleDoc.doc`)
 	reader, _ = mscfb.New(f)
 	simpleDoc, _, table = getWordDocAndTables(reader)
 }

@@ -8,8 +8,18 @@ import (
 )
 
 func init() {
-	f, _ := os.Open(`testData\simpleDoc.doc`)
-	reader, _ = mscfb.New(f)
+	var err error
+
+	f, err := os.Open(`testData/simpleDoc.doc`)
+	if err != nil {
+		panic(err)
+	}
+
+	reader, err = mscfb.New(f)
+	if err != nil {
+		panic(err)
+	}
+
 	simpleDoc, _, table = getWordDocAndTables(reader)
 }
 
