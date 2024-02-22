@@ -33,11 +33,12 @@ func wrapError(e error) error {
 func ParseDoc(r io.Reader) (io.Reader, error) {
 	ra, ok := r.(io.ReaderAt)
 	if !ok {
-		ra, _, err := toMemoryBuffer(r)
+		membuf, _, err := toMemoryBuffer(r)
 		if err != nil {
 			return nil, wrapError(err)
 		}
-		defer ra.Close()
+		ra = membuf
+		defer membuf.Close()
 	}
 
 	d, err := mscfb.New(ra)

@@ -18,6 +18,17 @@ func TestParseSimpleDoc(t *testing.T) {
 	}
 }
 
+func TestParseSimpleDoc_ConvertingToReaderAt(t *testing.T) {
+	data, _ := os.ReadFile(`testData/simpleDoc.doc`)
+	buf, err := ParseDoc(bytes.NewBuffer(data))
+	if err != nil {
+		t.Fatal("expected successful parse", err)
+	}
+	if s := buf.(*bytes.Buffer).String(); s != "12345\r" {
+		t.Errorf("expected correct value |%s|", s)
+	}
+}
+
 func TestParseComplicated(t *testing.T) {
 	f, _ := os.Open(`testData/docFile.doc`)
 	buf, err := ParseDoc(f)
