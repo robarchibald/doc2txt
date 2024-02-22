@@ -29,6 +29,17 @@ func TestParseSimpleDoc_ConvertingToReaderAt(t *testing.T) {
 	}
 }
 
+func TestParseCorrectUTF16(t *testing.T) {
+	f, _ := os.Open(`testData/utf16Doc.doc`)
+	buf, err := ParseDoc(f)
+	if err != nil {
+		t.Fatal("expected successful parse", err)
+	}
+	if s := buf.(*bytes.Buffer).String(); s != "Test UTF-16\r" {
+		t.Errorf("expected correct value |%s|", s)
+	}
+}
+
 func TestParseComplicated(t *testing.T) {
 	f, _ := os.Open(`testData/docFile.doc`)
 	buf, err := ParseDoc(f)
