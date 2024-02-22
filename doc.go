@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"io"
+	"unicode/utf16"
 
 	"github.com/mattetti/filebuffer"
 	"github.com/richardlehane/mscfb"
@@ -33,11 +34,12 @@ func wrapError(e error) error {
 func ParseDoc(r io.Reader) (io.Reader, error) {
 	ra, ok := r.(io.ReaderAt)
 	if !ok {
-		ra, _, err := toMemoryBuffer(r)
+		membuf, _, err := toMemoryBuffer(r)
 		if err != nil {
 			return nil, wrapError(err)
 		}
-		defer ra.Close()
+		ra = membuf
+		defer membuf.Close()
 	}
 
 	d, err := mscfb.New(ra)
@@ -75,34 +77,47 @@ func toMemoryBuffer(r io.Reader) (allReader, int64, error) {
 }
 
 func getText(wordDoc *mscfb.File, clx *clx) (io.Reader, error) {
-	var buf bytes.Buffer
+	var buf utf16Buffer
+
 	for i := 0; i < len(clx.pcdt.PlcPcd.aPcd); i++ {
 		pcd := clx.pcdt.PlcPcd.aPcd[i]
 		cp := clx.pcdt.PlcPcd.aCP[i]
 		cpNext := clx.pcdt.PlcPcd.aCP[i+1]
 
-		var start, end, size int
+		var start, end int
 		if pcd.fc.fCompressed {
-			size = 1
 			start = pcd.fc.fc / 2
 			end = start + cpNext - cp
 		} else {
-			size = 2
 			start = pcd.fc.fc
 			end = start + 2*(cpNext-cp)
 		}
 
 		b := make([]byte, end-start)
-		_, err := wordDoc.ReadAt(b, int64(start/size)) // read all the characters
+		_, err := wordDoc.ReadAt(b, int64(start)) // read all the characters
 		if err != nil {
 			return nil, err
 		}
 		translateText(b, &buf, pcd.fc.fCompressed)
 	}
-	return &buf, nil
+
+	runes := utf16.Decode(buf.Chars())
+
+	var out bytes.Buffer
+	out.Grow(len(runes))
+	for _, r := range runes {
+		if r == 7 { // table column separator
+			r = ' '
+		} else if r < 32 && r != 9 && r != 10 && r != 13 { // skip non-printable ASCII characters
+			continue
+		}
+		out.WriteRune(r)
+	}
+
+	return &out, nil
 }
 
-func translateText(b []byte, buf *bytes.Buffer, fCompressed bool) {
+func translateText(b []byte, buf *utf16Buffer, fCompressed bool) {
 	fieldLevel := 0
 	var isFieldChar bool
 	for cIndex := range b {
@@ -121,18 +136,10 @@ func translateText(b []byte, buf *bytes.Buffer, fCompressed bool) {
 			continue
 		}
 
-		if b[cIndex] == 7 { // table column separator
-			buf.WriteByte(' ')
-			continue
-		} else if b[cIndex] < 32 && b[cIndex] != 9 && b[cIndex] != 10 && b[cIndex] != 13 { // skip non-printable ASCII characters
-			//buf.Write([]byte(fmt.Sprintf("|%#x|", b[cIndex])))
-			continue
-		}
-
 		if fCompressed { // compressed, so replace compressed characters
 			buf.Write(replaceCompressed(b[cIndex]))
 		} else {
-			buf.Write(b)
+			buf.WriteByte(b[cIndex])
 		}
 	}
 }
@@ -189,7 +196,7 @@ func replaceCompressed(char byte) []byte {
 	case 0x9F:
 		v = 0x0178
 	default:
-		return []byte{char}
+		return []byte{char, 0x00}
 	}
 	out := make([]byte, 2)
 	binary.LittleEndian.PutUint16(out, v)
