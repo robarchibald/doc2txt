@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"encoding/binary"
 	"errors"
-	"github.com/mattetti/filebuffer"
-	"github.com/richardlehane/mscfb"
 	"io"
 	"unicode/utf16"
+
+	"github.com/mattetti/filebuffer"
+	"github.com/richardlehane/mscfb"
 )
 
 var (
